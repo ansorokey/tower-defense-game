@@ -9,8 +9,6 @@ const GLOBAL = {
     }
 }
 
-console.log(towerMatrix);
-
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 

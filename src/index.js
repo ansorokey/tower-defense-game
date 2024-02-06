@@ -4,10 +4,10 @@ import { c, canvas } from "./canvas.js";
 import { GLOBAL } from "./global.js";
 import PlacementTile from "./class/placement-tile.js";
 import Enemy from "./class/enemy.js";
+import Building from "./class/building.js";
 
 
 const placementTiles = []
-
 // go through every tile, check if it allows placement
 towerMatrix.forEach((row, y) => {
     row.forEach((symbol, x) => {
@@ -48,6 +48,10 @@ for(let i = 1; i < 11; i++) {
     )
 }
 
+const buildings = [];
+let activeTile;
+
+
 function animate() {
     // the primary animation loop
     window.requestAnimationFrame(animate);
@@ -60,10 +64,40 @@ function animate() {
 
     // draw the placement tiles
     placementTiles.forEach(tile => tile.update(GLOBAL.MOUSE_POSITION))
+
+    // draw the buildings
+    buildings.forEach(building => building.draw())
 }
+
+
+canvas.addEventListener('click', () => {
+    if(activeTile) {
+        buildings.push(new Building({
+            position: {
+                x: activeTile.position.x,
+                y: activeTile.position.y
+            }
+        }))
+        console.log(activeTile)
+    }
+})
 
 // update the saved position of the mouse every time it moved
 window.addEventListener('mousemove', (e) => {
     GLOBAL.MOUSE_POSITION.x = e.clientX;
     GLOBAL.MOUSE_POSITION.y = e.clientY;
+
+    activeTile = null;
+    for(let i = 0; i < placementTiles.length; i++) {
+        let tile = placementTiles[i];
+        if(
+            GLOBAL.MOUSE_POSITION.x > tile.position.x &&
+            GLOBAL.MOUSE_POSITION.x < tile.position.x + tile.size &&
+            GLOBAL.MOUSE_POSITION.y > tile.position.y &&
+            GLOBAL.MOUSE_POSITION.y < tile.position.y + tile.size
+        ) {
+                activeTile = tile;
+                break;
+        }
+    }
 })

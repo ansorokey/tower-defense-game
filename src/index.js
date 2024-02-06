@@ -22,16 +22,17 @@ class Enemy {
     constructor({
         position={x:0, y:0},
     }) {
-        this.poisition = position;
+        this.position = position;
         this.width = 100;
         this.height = 100;
+        this.curWaypoint = 0;
     }
 
     draw() {
         c.fillStyle = 'red';
         c.fillRect(
-            this.poisition.x,
-            this.poisition.y,
+            this.position.x,
+            this.position.y,
             this.width,
             this.height
         );
@@ -40,16 +41,44 @@ class Enemy {
     // draws this enemy and changes position every frame
     update() {
         this.draw();
-        this.poisition.x += 1;
+
+        // this calculation finds the angle to the next waypoint using trig
+        const waypoint = waypoints[this.curWaypoint];
+        const yDist = waypoint.y - this.position.y;
+        const xDist = waypoint.x - this.position.x;
+        const angle = Math.atan2(yDist, xDist);
+
+        // Rather than a static value,
+        // we use the values above as the x and y velocity to move to the enxt point
+        this.position.x += Math.cos(angle);
+        this.position.y += Math.sin(angle);
+
+        if(
+            // prevent out of bounds errors
+            this.curWaypoint < waypoints.length - 1 &&
+            // round both values to integers since they would be slightly off as floating points otherwise
+            Math.round(this.position.x) === Math.round(waypoint.x) &&
+            Math.round(this.position.y) === Math.round(waypoint.y)
+        ) {
+            this.curWaypoint += 1;
+        }
     }
 }
 
 const enemy = new Enemy({
-    position: {x:200, y:400},
+    // sthat them outside the bounds of the map, at the first waypoint
+    position: {
+        x:waypoints[0].x,
+        y: waypoints[0].y
+    },
 });
 
 const enemy2 = new Enemy({
-    position: {x:100, y:400},
+    // sthat them outside the bounds of the map, at the first waypoint
+    position: {
+        x:waypoints[0].x - 150,
+        y: waypoints[0].y
+    },
 });
 
 function animate() {
@@ -61,5 +90,5 @@ function animate() {
 
     // update the enemy
     enemy.update();
-    enemy2.update();
+    // enemy2.update();
 }

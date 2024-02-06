@@ -13,13 +13,14 @@ const c = canvas.getContext('2d');
 canvas.width = 1280;
 canvas.height = 768;
 
+// Where the player can place a building
 class PlacementTile {
     constructor({
         position = {x:0, y:0},
     }) {
         this.position = position;
         this.size = GLOBAL.TILE_SIZE;
-        this.color = 'green';
+        this.color = 'rgba(255, 255, 255, 0.25)';
     }
 
     draw() {
@@ -30,6 +31,20 @@ class PlacementTile {
             this.size,
             this.size
         )
+    }
+
+    update(mouse) {
+        this.draw()
+
+        // check if the mouse is on this sprite
+        if(
+            mouse.x > this.position.x &&
+            mouse.x < this.position.x + this.size &&
+            mouse.y > this.position.y &&
+            mouse.y < this.position.y + this.size
+        ) {
+            this.color = 'green';
+        }
     }
 }
 
@@ -48,8 +63,6 @@ towerMatrix.forEach((row, y) => {
         }
     })
 })
-
-console.log(placementTiles)
 
 const mapImg = new Image();
 mapImg.src = '/assets/tilesets/map.png';
@@ -142,5 +155,16 @@ function animate() {
     enemies.forEach(enemy => enemy.update())
 
     // draw the placement tiles
-    placementTiles.forEach(tile => tile.draw())
+    placementTiles.forEach(tile => tile.update(mouse))
 }
+
+const mouse = {
+    x: undefined,
+    y: undefined
+}
+
+// update the saved position of the mouse every time it moved
+window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+})

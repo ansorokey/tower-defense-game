@@ -1,6 +1,10 @@
 import { waypoints } from "./waypoints.js";
 import { towerMatrix } from "./towerSpots.js";
 
+const GLOBAL = {
+    TILE_SIZE: 64
+}
+
 console.log(towerMatrix);
 
 const canvas = document.querySelector('canvas');
@@ -8,6 +12,44 @@ const c = canvas.getContext('2d');
 
 canvas.width = 1280;
 canvas.height = 768;
+
+class PlacementTile {
+    constructor({
+        position = {x:0, y:0},
+    }) {
+        this.position = position;
+        this.size = GLOBAL.TILE_SIZE;
+        this.color = 'green';
+    }
+
+    draw() {
+        c.fillStyle = this.color;
+        c.fillRect(
+            this.position.x,
+            this.position.y,
+            this.size,
+            this.size
+        )
+    }
+}
+
+const placementTiles = []
+
+towerMatrix.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+        if(symbol === 14) {
+            // add a building tile here
+            placementTiles.push(new PlacementTile({
+                position: {
+                    x: x * GLOBAL.TILE_SIZE,
+                    y: y * GLOBAL.TILE_SIZE
+                }
+            }))
+        }
+    })
+})
+
+console.log(placementTiles)
 
 const mapImg = new Image();
 mapImg.src = '/assets/tilesets/map.png';
@@ -98,4 +140,7 @@ function animate() {
 
     // update the enemies
     enemies.forEach(enemy => enemy.update())
+
+    // draw the placement tiles
+    placementTiles.forEach(tile => tile.draw())
 }

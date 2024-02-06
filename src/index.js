@@ -1,4 +1,5 @@
 import { waypoints } from "./waypoints.js";
+import { towerSpots } from "./towerSpots.js";
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');

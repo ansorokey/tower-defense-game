@@ -32,6 +32,8 @@ export default class PlacementTile {
             mouse.y < this.position.y + this.size
         ) {
             this.color = 'green';
+        } else {
+            this.color = 'rgba(255, 255, 255, 0.25)';
         }
     }
 }

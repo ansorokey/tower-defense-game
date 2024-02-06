@@ -8,10 +8,11 @@ import Enemy from "./class/enemy.js";
 
 const placementTiles = []
 
+// go through every tile, check if it allows placement
 towerMatrix.forEach((row, y) => {
     row.forEach((symbol, x) => {
         if(symbol === 14) {
-            // add a building tile here
+            // add a building tile there
             placementTiles.push(new PlacementTile({
                 position: {
                     x: x * GLOBAL.TILE_SIZE,

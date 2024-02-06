@@ -6,9 +6,6 @@ const c = canvas.getContext('2d');
 canvas.width = 1280;
 canvas.height = 768;
 
-// c.fillStyle = 'white';
-// c.fillRect(0, 0, canvas.width, canvas.height);
-
 const mapImg = new Image();
 mapImg.src = '/assets/tilesets/map.png';
 // image loading is slightly async,
@@ -72,21 +69,22 @@ class Enemy {
     }
 }
 
-const enemy = new Enemy({
-    // start them outside the bounds of the map, at the first waypoint
-    position: {
-        x:waypoints[0].x,
-        y: waypoints[0].y
-    },
-});
+const enemies = []
+for(let i = 1; i < 11; i++) {
+    // space enemies out from each other, stagger entrance
+    const xOffset = i * 150;
 
-const enemy2 = new Enemy({
-    // sthat them outside the bounds of the map, at the first waypoint
-    position: {
-        x:waypoints[0].x - 150,
-        y: waypoints[0].y
-    },
-});
+    // add new enemy to array
+    enemies.push(
+        new Enemy({
+            position: {
+                // start them at the first waypoint
+                x:waypoints[0].x - xOffset,
+                y: waypoints[0].y
+            }
+        })
+    )
+}
 
 function animate() {
     // the primary animation loop
@@ -95,7 +93,6 @@ function animate() {
     // draw the background every frame
     c.drawImage(mapImg, 0, 0)
 
-    // update the enemy
-    enemy.update();
-    // enemy2.update();
+    // update the enemies
+    enemies.forEach(enemy => enemy.update())
 }

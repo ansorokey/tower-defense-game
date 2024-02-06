@@ -2,7 +2,11 @@ import { waypoints } from "./waypoints.js";
 import { towerMatrix } from "./towerSpots.js";
 
 const GLOBAL = {
-    TILE_SIZE: 64
+    TILE_SIZE: 64,
+    MOUSE_POSITION: {
+        x: undefined,
+        y: undefined
+    }
 }
 
 console.log(towerMatrix);
@@ -155,16 +159,11 @@ function animate() {
     enemies.forEach(enemy => enemy.update())
 
     // draw the placement tiles
-    placementTiles.forEach(tile => tile.update(mouse))
-}
-
-const mouse = {
-    x: undefined,
-    y: undefined
+    placementTiles.forEach(tile => tile.update(GLOBAL.MOUSE_POSITION))
 }
 
 // update the saved position of the mouse every time it moved
 window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    GLOBAL.MOUSE_POSITION.x = e.clientX;
+    GLOBAL.MOUSE_POSITION.y = e.clientY;
 })

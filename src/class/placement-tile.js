@@ -9,6 +9,7 @@ export default class PlacementTile {
         this.position = position;
         this.size = GLOBAL.TILE_SIZE;
         this.color = 'rgba(255, 255, 255, 0.25)';
+        this.isOccupied = false;
     }
 
     draw() {

@@ -71,14 +71,14 @@ function animate() {
 
 
 canvas.addEventListener('click', () => {
-    if(activeTile) {
+    if(activeTile && !activeTile.isOccupied) {
         buildings.push(new Building({
             position: {
                 x: activeTile.position.x,
                 y: activeTile.position.y
             }
         }))
-        console.log(activeTile)
+        activeTile.isOccupied = true;
     }
 })
 

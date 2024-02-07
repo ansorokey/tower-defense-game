@@ -16,7 +16,7 @@ export default class Building{
         c.fillRect(
             this.position.x,
             this.position.y,
-            GLOBAL.TILE_SIZE,
+            GLOBAL.TILE_SIZE * 2,
             GLOBAL.TILE_SIZE
         )
     }

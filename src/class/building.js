@@ -1,5 +1,6 @@
 import { c } from "../canvas.js";
 import { GLOBAL } from "../global.js";
+import Projectile from "./projectile.js";
 
 export default class Building{
     constructor({
@@ -9,6 +10,20 @@ export default class Building{
         }
     }) {
         this.position = position;
+        this.width = GLOBAL.TILE_SIZE * 2;
+        this.height = GLOBAL.TILE_SIZE;
+        this.center = {
+            x: this.position.x + this.width/2,
+            y: this.position.y + this.height/2
+        }
+        this.projectiles = [
+            new Projectile({
+                position: {
+                    x: this.center.x,
+                    y: this.center.y
+                }
+            })
+        ];
     }
 
     draw() {
@@ -16,8 +31,8 @@ export default class Building{
         c.fillRect(
             this.position.x,
             this.position.y,
-            GLOBAL.TILE_SIZE * 2,
-            GLOBAL.TILE_SIZE
+            this.width,
+            this.height
         )
     }
 }

@@ -66,7 +66,13 @@ function animate() {
     placementTiles.forEach(tile => tile.update(GLOBAL.MOUSE_POSITION))
 
     // draw the buildings
-    buildings.forEach(building => building.draw())
+    buildings.forEach(building => {
+        building.draw()
+        // console.log(building.projectiles)
+        building.projectiles.forEach((projectile) => {
+            projectile.draw()
+        })
+    })
 }
 
 

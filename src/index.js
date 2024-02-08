@@ -69,13 +69,16 @@ function animate() {
     buildings.forEach(building => {
         building.draw()
         // console.log(building.projectiles)
-        building.projectiles.forEach((projectile) => {
-            projectile.update({enemies})
+        building.projectiles.forEach((projectile, i) => {
+            projectile.update()
 
             // circular collision
             const xDiff = projectile.enemy.center.x - projectile.position.x;
             const yDiff = projectile.enemy.center.y - projectile.position.y;
             const distance = Math.hypot(xDiff, yDiff);
+            if(distance < projectile.enemy.radius + projectile.radius) {
+                building.projectiles.splice(i, 1);
+            }
         })
     })
 }

@@ -8,6 +8,7 @@ export default class Projectile {
         this.position = position;
         this.velocity = { x:0, y:0},
         this.enemy = enemy;
+        this.radius = 10;
     }
 
     draw() {
@@ -15,7 +16,7 @@ export default class Projectile {
         c.arc(
             this.position.x,
             this.position.y,
-            10, // radius
+            this.radius, // radius
             0, //starting radians
             Math.PI * 2 // ending radians
         )
@@ -23,7 +24,7 @@ export default class Projectile {
         c.fill();
     }
 
-    update({enemies}) {
+    update() {
         this.draw()
 
         // calculate its velocity from spawn to enemy

@@ -68,8 +68,11 @@ function animate() {
     // draw the buildings
     buildings.forEach(building => {
         building.draw()
-        // console.log(building.projectiles)
-        building.projectiles.forEach((projectile, i) => {
+
+        // iterating backwards is more efficient and prevents stutters when re-indexing already exisiting projectiles in the array
+        for(let i = building.projectiles.length - 1; i >= 0; i--) {
+            const projectile = buildings.projectile[i];
+
             projectile.update()
 
             // circular collision
@@ -79,7 +82,7 @@ function animate() {
             if(distance < projectile.enemy.radius + projectile.radius) {
                 building.projectiles.splice(i, 1);
             }
-        })
+        }
     })
 }
 

@@ -26,6 +26,8 @@ export default class Building{
                 enemy: enemies[0]
             })
         ];
+        this.radius = 250; // the attack range
+        this.target;
     }
 
     draw() {
@@ -36,5 +38,16 @@ export default class Building{
             this.width,
             this.height
         )
+
+        c.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        c.beginPath();
+        c.arc(
+            this.center.x,
+            this.center.y,
+            this.radius, // radius
+            0, //starting radians
+            Math.PI * 2 // ending radians
+        )
+        c.fill();
     }
 }

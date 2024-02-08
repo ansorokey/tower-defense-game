@@ -3,12 +3,13 @@ import { c } from "../canvas.js";
 export default class Projectile {
     constructor({
         position={x:0, y:0},
-        enemy
+        enemy,
     }) {
         this.position = position;
         this.velocity = { x:0, y:0},
         this.enemy = enemy;
         this.radius = 10;
+        this.moveSpeed = 5;
     }
 
     draw() {
@@ -34,8 +35,8 @@ export default class Projectile {
         );
 
         // ranges from -1 to 1
-        this.velocity.x = Math.cos(angle);
-        this.velocity.y = Math.sin(angle);
+        this.velocity.x = Math.cos(angle) * this.moveSpeed;
+        this.velocity.y = Math.sin(angle) * this.moveSpeed;
 
         //move that much
         this.position.x += this.velocity.x;

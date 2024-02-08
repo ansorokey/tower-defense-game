@@ -67,7 +67,7 @@ function animate() {
 
     // draw the buildings
     buildings.forEach(building => {
-        building.draw()
+        building.update()
         // unset it before trying to reset it
         building.target = null;
 
@@ -78,7 +78,7 @@ function animate() {
             const distance = Math.hypot(xDiff, yDiff);
             return distance < enemy.radius + building.radius;
         });
-        console.log(validEnemies)
+        building.target = validEnemies[0];
 
         // iterating backwards is more efficient and prevents stutters when re-indexing already exisiting projectiles in the array
         for(let i = building.projectiles.length - 1; i >= 0; i--) {

@@ -17,17 +17,10 @@ export default class Building{
             x: this.position.x + this.width/2,
             y: this.position.y + this.height/2
         }
-        this.projectiles = [
-            new Projectile({
-                position: {
-                    x: this.center.x,
-                    y: this.center.y
-                },
-                enemy: enemies[0]
-            })
-        ];
+        this.projectiles = [];
         this.radius = 250; // the attack range
         this.target;
+        this.frames = 0;
     }
 
     draw() {
@@ -49,5 +42,22 @@ export default class Building{
             Math.PI * 2 // ending radians
         )
         c.fill();
+    }
+
+    update() {
+        this.draw();
+        this.frames += 1;
+
+        if(this.frames % 100 === 0 && this.target) {
+            this.projectiles.push(
+                new Projectile({
+                    position: {
+                        x: this.center.x,
+                        y: this.center.y
+                    },
+                    enemy: this.target
+                })
+            )
+        }
     }
 }

@@ -70,7 +70,12 @@ function animate() {
         building.draw()
         // console.log(building.projectiles)
         building.projectiles.forEach((projectile) => {
-            projectile.draw()
+            projectile.update({enemies})
+
+            // circular collision
+            const xDiff = projectile.enemy.center.x - projectile.position.x;
+            const yDiff = projectile.enemy.center.y - projectile.position.y;
+            const distance = Math.hypot(xDiff, yDiff);
         })
     })
 }
@@ -82,7 +87,8 @@ canvas.addEventListener('click', () => {
             position: {
                 x: activeTile.position.x,
                 y: activeTile.position.y
-            }
+            },
+            enemies
         }))
         activeTile.isOccupied = true;
     }

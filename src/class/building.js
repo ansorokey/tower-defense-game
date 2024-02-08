@@ -7,7 +7,8 @@ export default class Building{
         position = {
             x: 0,
             y: 0
-        }
+        },
+        enemies=[]
     }) {
         this.position = position;
         this.width = GLOBAL.TILE_SIZE * 2;
@@ -21,7 +22,8 @@ export default class Building{
                 position: {
                     x: this.center.x,
                     y: this.center.y
-                }
+                },
+                enemy: enemies[0]
             })
         ];
     }

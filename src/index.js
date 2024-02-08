@@ -91,6 +91,17 @@ function animate() {
             const yDiff = projectile.enemy.center.y - projectile.position.y;
             const distance = Math.hypot(xDiff, yDiff);
             if(distance < projectile.enemy.radius + projectile.radius) {
+                // projectile hits enemy
+                projectile.enemy.health -= 20;
+                if(projectile.enemy.health <= 0) {
+                    const enemyIndex = enemies.findIndex((enemy) => {
+                        return projectile.enemy === enemy;
+                    })
+
+                    if(enemyIndex > -1) {
+                        enemies.splice(enemyIndex, 1)
+                    }
+                }
                 building.projectiles.splice(i, 1);
             }
         }

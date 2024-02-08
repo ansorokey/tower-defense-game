@@ -14,7 +14,8 @@ export default class Enemy {
             x: this.position.x + this.width/2,
             y: this.position.y + this.height/2
         },
-        this.radius = 50;
+        this.radius = 50;,
+        this.health = 100;
     }
 
     draw() {
@@ -35,6 +36,24 @@ export default class Enemy {
             Math.PI * 2 // ending radians
         )
         c.fill();
+
+        // Max health bar
+        c.fillStyle = 'red';
+        c.fillRect(
+            this.position.x,
+            this.position.y - 15,
+            this.width,
+            10
+        );
+
+        // Remaining health bar
+        c.fillStyle = 'green';
+        c.fillRect(
+            this.position.x,
+            this.position.y - 15,
+            this.width,
+            10
+        );
     }
 
     update() {

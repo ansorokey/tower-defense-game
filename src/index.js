@@ -6,7 +6,7 @@ import PlacementTile from "./class/placement-tile.js";
 import Enemy from "./class/enemy.js";
 import Building from "./class/building.js";
 
-
+let enemyCount = 3;
 const placementTiles = []
 // go through every tile, check if it allows placement
 towerMatrix.forEach((row, y) => {
@@ -31,22 +31,29 @@ mapImg.onload = () => {
     animate();
 }
 
-const enemies = []
-for(let i = 1; i < 11; i++) {
-    // space enemies out from each other, stagger entrance
-    const xOffset = i * 150;
 
-    // add new enemy to array
-    enemies.push(
-        new Enemy({
-            position: {
-                // start them at the first waypoint
-                x:waypoints[0].x - xOffset,
-                y: waypoints[0].y
-            }
-        })
-    )
+// spawns enemies
+const enemies = []
+function spawnEnemies({
+    spawnCount
+}) {
+    for(let i = 1; i < spawnCount; i++) {
+        // space enemies out from each other, stagger entrance
+        const xOffset = i * 150;
+
+        // add new enemy to array
+        enemies.push(
+            new Enemy({
+                position: {
+                    // start them at the first waypoint
+                    x:waypoints[0].x - xOffset,
+                    y: waypoints[0].y
+                }
+            })
+        )
+    }
 }
+spawnEnemies({spawnCount:enemyCount});
 
 const buildings = [];
 let activeTile;
@@ -101,9 +108,16 @@ function animate() {
                         return projectile.enemy === enemy;
                     })
 
+                    // if we found that enemy, remove it from the current enemies
                     if(enemyIndex > -1) {
                         enemies.splice(enemyIndex, 1)
                     }
+                }
+
+                // check if all enemies are defeated
+                if(enemies.length === 0) {
+                    enemyCount += 3
+                    spawnEnemies({spawnCount:enemyCount});
                 }
                 building.projectiles.splice(i, 1);
             }

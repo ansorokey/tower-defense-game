@@ -16,6 +16,8 @@ export default class Enemy {
         },
         this.radius = 50;
         this.health = 100;
+        this.velocity = { x:0, y:0 };
+        this.moveSpeed = 5;
     }
 
     draw() {
@@ -65,10 +67,12 @@ export default class Enemy {
         const xDist = waypoint.x - this.center.x;
         const angle = Math.atan2(yDist, xDist);
 
-        // Rather than a static value,
-        // we use the values above as the x and y velocity to move to the enxt point
-        this.position.x += Math.cos(angle);
-        this.position.y += Math.sin(angle);
+        this.velocity.x = Math.cos(angle);
+        this.velocity.y = Math.sin(angle)
+
+        // move the enemy that much
+        this.position.x += this.velocity.x * this.moveSpeed;
+        this.position.y += this.velocity.y * this.moveSpeed;
         this.center = {
             x: this.position.x + this.width/2,
             y: this.position.y + this.height/2

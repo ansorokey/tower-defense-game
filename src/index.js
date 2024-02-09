@@ -59,8 +59,11 @@ function animate() {
     // draw the background every frame
     c.drawImage(mapImg, 0, 0)
 
-    // update the enemies
-    enemies.forEach(enemy => enemy.update())
+    // update the enemies - start from the back to prevent flickering when removing enemies
+    for(let i = enemies.length - 1; i >= 0; i--) {
+        const enemy = enemies[i];
+        enemy.update();
+    }
 
     // draw the placement tiles
     placementTiles.forEach(tile => tile.update(GLOBAL.MOUSE_POSITION))

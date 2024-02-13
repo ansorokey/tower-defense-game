@@ -58,10 +58,11 @@ spawnEnemies({spawnCount:enemyCount});
 const buildings = [];
 let activeTile;
 
+let hearts = 10;
 
 function animate() {
     // the primary animation loop
-    window.requestAnimationFrame(animate);
+    const animationId = window.requestAnimationFrame(animate);
 
     // draw the background every frame
     c.drawImage(mapImg, 0, 0)
@@ -70,14 +71,26 @@ function animate() {
     for(let i = enemies.length - 1; i >= 0; i--) {
         const enemy = enemies[i];
         enemy.update();
-        console.log(enemies);
+        // console.log(enemies);
 
         // enemy leaves the map boundry
-        // if(enemy.position.x > canvas.width) {
-        //     // remove that enemy from the array
-        //     enemies.splice(i, 1);
-        //     console.log(enemies)
-        // }
+        if(enemy.position.x > canvas.width) {
+            // remove that enemy from the array
+            enemies.splice(i, 1);
+            hearts -= 1;
+
+            if(hearts === 0) {
+                console.log('game over...');
+                // clears/stops the running animation, like setTimeout
+                cancelAnimationFrame(animationId);
+            }
+        }
+    }
+
+    // check if all enemies are gone
+    if(enemies.length === 0) {
+        enemyCount += 3
+        spawnEnemies({spawnCount:enemyCount});
     }
 
     // draw the placement tiles
@@ -122,11 +135,6 @@ function animate() {
                     }
                 }
 
-                // check if all enemies are defeated
-                if(enemies.length === 0) {
-                    enemyCount += 3
-                    spawnEnemies({spawnCount:enemyCount});
-                }
                 building.projectiles.splice(i, 1);
             }
         }

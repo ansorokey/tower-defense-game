@@ -17,18 +17,12 @@ export default class Enemy {
         this.radius = 50;
         this.health = 100;
         this.velocity = { x:0, y:0 };
-        this.moveSpeed = 5; // working on increasing movement speed
+        this.moveSpeed = 10; // working on increasing movement speed
     }
 
     draw() {
-        c.fillStyle = 'red';
-        // c.fillRect(
-        //     this.position.x,
-        //     this.position.y,
-        //     this.width,
-        //     this.height
-        // );
 
+        // Enemy sprite
         c.beginPath();
         c.arc(
             this.center.x,
@@ -37,6 +31,7 @@ export default class Enemy {
             0, // starting radians
             Math.PI * 2 // ending radians
         )
+        c.fillStyle = 'red';
         c.fill();
 
         // Max health bar
@@ -71,8 +66,8 @@ export default class Enemy {
         this.velocity.y = Math.sin(angle) * this.moveSpeed;
 
         // move the enemy that much
-        this.position.x += this.velocity.x * this.moveSpeed;
-        this.position.y += this.velocity.y * this.moveSpeed;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
         this.center = {
             x: this.position.x + this.width/2,
             y: this.position.y + this.height/2

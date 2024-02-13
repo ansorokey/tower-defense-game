@@ -70,6 +70,14 @@ function animate() {
     for(let i = enemies.length - 1; i >= 0; i--) {
         const enemy = enemies[i];
         enemy.update();
+        console.log(enemies);
+
+        // enemy leaves the map boundry
+        // if(enemy.position.x > canvas.width) {
+        //     // remove that enemy from the array
+        //     enemies.splice(i, 1);
+        //     console.log(enemies)
+        // }
     }
 
     // draw the placement tiles

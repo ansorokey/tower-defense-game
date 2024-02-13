@@ -17,7 +17,7 @@ export default class Enemy {
         this.radius = 50;
         this.health = 100;
         this.velocity = { x:0, y:0 };
-        this.moveSpeed = 5;
+        this.moveSpeed = 5; // working on increasing movement speed
     }
 
     draw() {
@@ -67,8 +67,8 @@ export default class Enemy {
         const xDist = waypoint.x - this.center.x;
         const angle = Math.atan2(yDist, xDist);
 
-        this.velocity.x = Math.cos(angle);
-        this.velocity.y = Math.sin(angle)
+        this.velocity.x = Math.cos(angle) * this.moveSpeed;
+        this.velocity.y = Math.sin(angle) * this.moveSpeed;
 
         // move the enemy that much
         this.position.x += this.velocity.x * this.moveSpeed;
@@ -82,8 +82,10 @@ export default class Enemy {
             // prevent out of bounds errors
             this.curWaypoint < waypoints.length - 1 &&
             // round both values to integers since they would be slightly off as floating points otherwise
-            Math.round(this.center.x) === Math.round(waypoint.x) &&
-            Math.round(this.center.y) === Math.round(waypoint.y)
+            // rememebr that velocity is starts at a range of -1 to 1, so 1 * moveSpeed (3)
+            // would give us a range we need to be in (within 3 pixels)
+            Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) < Math.abs(this.velocity.x) &&
+            Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) < Math.abs(this.velocity.y)
         ) {
             this.curWaypoint += 1;
         }

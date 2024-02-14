@@ -7,7 +7,10 @@ import Enemy from "./class/enemy.js";
 import Building from "./class/building.js";
 
 let enemyCount = 3;
+let coins = 100;
 const placementTiles = []
+const enemies = []
+
 // go through every tile, check if it allows placement
 towerMatrix.forEach((row, y) => {
     row.forEach((symbol, x) => {
@@ -33,7 +36,6 @@ mapImg.onload = () => {
 
 
 // spawns enemies
-const enemies = []
 function spawnEnemies({
     spawnCount
 }) {
@@ -144,9 +146,11 @@ function animate() {
     })
 }
 
-
+// place/create tower
 canvas.addEventListener('click', () => {
-    if(activeTile && !activeTile.isOccupied) {
+    if(activeTile && !activeTile.isOccupied && coins - 50 >= 0) {
+        coins -= 50;
+        document.querySelector('#coins').textContent = coins;
         buildings.push(new Building({
             position: {
                 x: activeTile.position.x,

@@ -80,7 +80,8 @@ function animate() {
             hearts -= 1;
 
             if(hearts === 0) {
-                console.log('game over...');
+                document.querySelector('h1').style.display = 'flex';
+
                 // clears/stops the running animation, like setTimeout
                 cancelAnimationFrame(animationId);
             }

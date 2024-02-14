@@ -1,20 +1,30 @@
+* {
+    font-family: "Changa One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
 body {
     background-color: black;
 }
 
 #wrapper {
     position: relative;
-    /* inline block adjusts to the full width of children i.e. the canvas */
+    /* inline block adjusts to the full width of content i.e. the canvas */
     display: inline-block;
 }
 
 h1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    bottom: 0;
+    color: white;
+    display: none;
+    font-size: 72px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-text-stroke: 3px black;
 }

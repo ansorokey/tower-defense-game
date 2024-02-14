@@ -2,7 +2,19 @@ body {
     background-color: black;
 }
 
-/* canvas {
-    width: 1280px;
-    height: 768px;
-} */
+#wrapper {
+    position: relative;
+    /* inline block adjusts to the full width of children i.e. the canvas */
+    display: inline-block;
+}
+
+h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

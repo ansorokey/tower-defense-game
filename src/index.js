@@ -79,6 +79,8 @@ function animate() {
             enemies.splice(i, 1);
             hearts -= 1;
 
+            document.querySelector('#lives').textContent = hearts;
+
             if(hearts === 0) {
                 document.querySelector('h1').style.display = 'flex';
 

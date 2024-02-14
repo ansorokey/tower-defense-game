@@ -8,3 +8,5 @@ Please donate if able!
 [Free Stone Tower Defense Game Art](https://free-game-assets.itch.io/free-stone-tower-defense-game-art)
 [Free RPG Desert Tileset](https://free-game-assets.itch.io/free-rpg-desert-tileset)
 [Free 2D Orcs Sprite Sheets](https://free-game-assets.itch.io/free-2d-orcs-sprite-sheets)
+[Changa One Font](https://fonts.google.com/specimen/Changa+One)
+[Hero Icons]()

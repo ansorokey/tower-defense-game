@@ -10,19 +10,16 @@ export default class Projectile {
         this.enemy = enemy;
         this.radius = 10;
         this.moveSpeed = 5;
+        this.image = new Image();
+        this.image.src = '/assets/tilesets/projectile.png';
     }
 
     draw() {
-        c.beginPath();
-        c.arc(
+        c.drawImage(
+            this.image,
             this.position.x,
-            this.position.y,
-            this.radius, // radius
-            0, //starting radians
-            Math.PI * 2 // ending radians
-        )
-        c.fillStyle = 'orange';
-        c.fill();
+            this.position.y
+        );
     }
 
     update() {

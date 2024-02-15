@@ -17,7 +17,7 @@ export default class Enemy {
         this.radius = 50;
         this.health = 100;
         this.velocity = { x:0, y:0 };
-        this.moveSpeed = 10; // working on increasing movement speed
+        this.moveSpeed = 1; // working on increasing movement speed
     }
 
     draw() {

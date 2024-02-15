@@ -136,7 +136,9 @@ function animate() {
 
                     // if we found that enemy, remove it from the current enemies
                     if(enemyIndex > -1) {
-                        enemies.splice(enemyIndex, 1)
+                        enemies.splice(enemyIndex, 1);
+                        coins += 25;
+                        document.querySelector('#coins').textContent = coins;
                     }
                 }
 

@@ -1,12 +1,20 @@
 import { waypoints } from "../waypoints.js";
 import { c } from "../canvas.js";
+import Sprite from "./sprite.js";
 
 // Enemy Class Definition
-export default class Enemy {
+export default class Enemy extends Sprite {
     constructor({
         position={x:0, y:0},
     }) {
-        this.position = position;
+        super({
+            position,
+            imageSrc: '/assets/tilesets/orc.png',
+            frames: {
+                max: 7
+            }
+        })
+
         this.width = 100;
         this.height = 100;
         this.curWaypoint = 0;
@@ -21,18 +29,8 @@ export default class Enemy {
     }
 
     draw() {
-
-        // Enemy sprite
-        c.beginPath();
-        c.arc(
-            this.center.x,
-            this.center.y,
-            this.radius,
-            0, // starting radians
-            Math.PI * 2 // ending radians
-        )
-        c.fillStyle = 'red';
-        c.fill();
+        // call the sprite's draw function so we can also reference the below code
+        super.draw();
 
         // Max health bar
         c.fillStyle = 'red';

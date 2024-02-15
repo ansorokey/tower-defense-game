@@ -1,25 +1,20 @@
 import { c } from "../canvas.js";
+import Sprite from "./sprite.js";
 
-export default class Projectile {
+export default class Projectile extends Sprite {
     constructor({
         position={x:0, y:0},
         enemy,
     }) {
-        this.position = position;
-        this.velocity = { x:0, y:0},
+        super({
+            position,
+            imageSrc:'/assets/tilesets/projectile.png'
+        })
+
         this.enemy = enemy;
+        this.velocity = { x:0, y:0},
         this.radius = 10;
         this.moveSpeed = 5;
-        this.image = new Image();
-        this.image.src = '/assets/tilesets/projectile.png';
-    }
-
-    draw() {
-        c.drawImage(
-            this.image,
-            this.position.x,
-            this.position.y
-        );
     }
 
     update() {

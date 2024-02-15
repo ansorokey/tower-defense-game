@@ -5,7 +5,8 @@ export default class Sprite {
         imageSrc,
         position={x:0,y:0},
         frames={
-            max: 1
+            max: 1,
+            current: 1
         }
     }) {
         this.image = new Image();
@@ -15,12 +16,13 @@ export default class Sprite {
     }
 
     draw() {
+        const cropWidth = this.image.width / this.frames.max;
         const crop = {
             position: {
-                x: 0,
+                x: cropWidth * this.frames.current,
                 y: 0
             },
-            width: this.image.width / this.frames.max,
+            width: cropWidth,
             height: this.image.height,
         }
 

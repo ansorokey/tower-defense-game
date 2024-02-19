@@ -50,7 +50,7 @@ export default class Sprite {
         this.frames.elapsed += 1;
         if(this.frames.elapsed % this.frames.hold === 0) {
             this.frames.current += 1;
-            if(this.frames.current >= this.frames.max - 1) {
+            if(this.frames.current >= this.frames.max) {
                 this.frames.current = 0;
             }
         }

@@ -5,11 +5,17 @@ import { GLOBAL } from "./global.js";
 import PlacementTile from "./class/placement-tile.js";
 import Enemy from "./class/enemy.js";
 import Building from "./class/building.js";
+import Sprite from "./class/sprite.js";
 
 let enemyCount = 3;
 let coins = 100;
 const placementTiles = []
 const enemies = []
+const explosions = [];
+const buildings = [];
+let activeTile;
+
+let hearts = 10;
 
 // go through every tile, check if it allows placement
 towerMatrix.forEach((row, y) => {
@@ -26,10 +32,11 @@ towerMatrix.forEach((row, y) => {
     })
 })
 
+// create the background/map
 const mapImg = new Image();
 mapImg.src = '/assets/tilesets/map.png';
 // image loading is slightly async,
-//so we use an onload function to initiate
+//so we use an onload function to start animation loop
 mapImg.onload = () => {
     animate();
 }
@@ -57,10 +64,6 @@ function spawnEnemies({
 }
 spawnEnemies({spawnCount:enemyCount});
 
-const buildings = [];
-let activeTile;
-
-let hearts = 10;
 
 function animate() {
     // the primary animation loop
@@ -90,6 +93,18 @@ function animate() {
                 cancelAnimationFrame(animationId);
             }
         }
+
+        // draw enemy explosions on top of enemies
+        for(let i = explosions.length - 1; i >= 0; i--) {
+            const explosion = explosions[i];
+            explosion.draw();
+            explosion.update();
+
+            // Delete explosion after animation
+            if(explosion.frames.current >= explosion.frames.max - 1) {
+                explosions.splice(i, 1);
+            }
+        }
     }
 
     // check if all enemies are gone
@@ -114,6 +129,7 @@ function animate() {
             const distance = Math.hypot(xDiff, yDiff);
             return distance < enemy.radius + building.radius;
         });
+
         building.target = validEnemies[0];
 
         // iterating backwards is more efficient and prevents stutters when re-indexing already exisiting projectiles in the array
@@ -142,11 +158,25 @@ function animate() {
                     }
                 }
 
+                explosions.push(new Sprite({
+                    position: {
+                        x:projectile.position.x,
+                        y:projectile.position.y
+                    },
+                    imageSrc: '/assets/tilesets/explosion.png',
+                    frames: {
+                        max: 4
+                    },
+                    offset: {
+                        x:0, y:0
+                    }
+                }))
                 building.projectiles.splice(i, 1);
             }
         }
     })
 }
+
 
 // place/create tower
 canvas.addEventListener('click', () => {
@@ -168,6 +198,7 @@ canvas.addEventListener('click', () => {
         })
     }
 })
+
 
 // update the saved position of the mouse every time it moved
 window.addEventListener('mousemove', (e) => {

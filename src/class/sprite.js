@@ -6,13 +6,17 @@ export default class Sprite {
         position={x:0,y:0},
         frames={
             max: 1,
-            current: 1
         }
     }) {
         this.image = new Image();
         this.image.src = imageSrc;
         this.position = position;
-        this.frames = frames;
+        this.frames = {
+            max: frames.max,
+            current: 0,
+            elapsed: 0,
+            hold: 3
+        };
     }
 
     draw() {
@@ -37,5 +41,14 @@ export default class Sprite {
             crop.width,
             crop.height
         )
+
+        // only change the animation frame every Xth frame
+        this.frames.elapsed += 1;
+        if(this.frames.elapsed % this.frames.hold === 0) {
+            this.frames.current += 1;
+            if(this.frames.current >= this.frames.max - 1) {
+                this.frames.current = 0;
+            }
+        }
     }
 }

@@ -161,6 +161,11 @@ canvas.addEventListener('click', () => {
             enemies
         }))
         activeTile.isOccupied = true;
+
+        // draws buildings in order by position (nearest to background first)
+        buildings.sort((a, b) => {
+            return a.position.y - b.position.y
+        })
     }
 })
 

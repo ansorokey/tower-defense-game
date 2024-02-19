@@ -37,16 +37,16 @@ export default class Building extends Sprite {
         super.draw();
 
         // draws the tower radius
-        c.fillStyle = 'rgba(0, 0, 0, 0.25)';
-        c.beginPath();
-        c.arc(
-            this.center.x,
-            this.center.y,
-            this.radius, // radius
-            0, //starting radians
-            Math.PI * 2 // ending radians
-        )
-        c.fill();
+        // c.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        // c.beginPath();
+        // c.arc(
+        //     this.center.x,
+        //     this.center.y,
+        //     this.radius, // radius
+        //     0, //starting radians
+        //     Math.PI * 2 // ending radians
+        // )
+        // c.fill();
     }
 
     shoot() {
@@ -63,6 +63,11 @@ export default class Building extends Sprite {
 
     update() {
         this.draw();
+
+        // if there's no ememy in range, we want to finish the animation
+        if(this.target || !this.target && this.frames.current !== 0) {
+            super.update();
+        }
 
         // remember that a frame is held for x number of frames
         // that would result in x projectiles being shot until that frame changes

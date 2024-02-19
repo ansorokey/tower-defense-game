@@ -53,6 +53,7 @@ export default class Enemy extends Sprite {
 
     update() {
         this.draw();
+        super.update();
 
         // this calculation finds the angle to the next waypoint using trig
         const waypoint = waypoints[this.curWaypoint];

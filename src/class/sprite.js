@@ -43,7 +43,9 @@ export default class Sprite {
             crop.width,
             crop.height
         )
+    }
 
+    update() {
         // only change the animation frame every Xth frame
         this.frames.elapsed += 1;
         if(this.frames.elapsed % this.frames.hold === 0) {

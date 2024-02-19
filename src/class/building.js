@@ -1,8 +1,9 @@
 import { c } from "../canvas.js";
 import { GLOBAL } from "../global.js";
 import Projectile from "./projectile.js";
+import Sprite from "./sprite.js";
 
-export default class Building{
+export default class Building extends Sprite {
     constructor({
         position = {
             x: 0,
@@ -10,7 +11,17 @@ export default class Building{
         },
         enemies=[]
     }) {
-        this.position = position;
+        super({
+            position,
+            imageSrc:'/assets/tilesets/tower.png',
+            frames: {
+                max: 19
+            },
+            offset: {
+                x: 0, y: -80
+            }
+        })
+
         this.width = GLOBAL.TILE_SIZE * 2;
         this.height = GLOBAL.TILE_SIZE;
         this.center = {
@@ -20,18 +31,12 @@ export default class Building{
         this.projectiles = [];
         this.radius = 250; // the attack range
         this.target;
-        this.frames = 0;
     }
 
     draw() {
-        c.fillStyle = 'blue';
-        c.fillRect(
-            this.position.x,
-            this.position.y,
-            this.width,
-            this.height
-        )
+        super.draw();
 
+        // draws the tower radius
         c.fillStyle = 'rgba(0, 0, 0, 0.25)';
         c.beginPath();
         c.arc(
@@ -44,20 +49,28 @@ export default class Building{
         c.fill();
     }
 
+    shoot() {
+        this.projectiles.push(
+            new Projectile({
+                position: {
+                    x: this.center.x - 20,
+                    y: this.center.y - 110
+                },
+                enemy: this.target
+            })
+        )
+    }
+
     update() {
         this.draw();
-        this.frames += 1;
 
-        if(this.frames % 100 === 0 && this.target) {
-            this.projectiles.push(
-                new Projectile({
-                    position: {
-                        x: this.center.x,
-                        y: this.center.y
-                    },
-                    enemy: this.target
-                })
-            )
+        // remember that a frame is held for x number of frames
+        // that would result in x projectiles being shot until that frame changes
+        if(
+            this.target && this.frames.current === 6 &&
+            this.frames.elapsed % this.frames.hold === 0
+        ) {
+            this.shoot();
         }
     }
 }

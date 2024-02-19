@@ -6,7 +6,8 @@ export default class Sprite {
         position={x:0,y:0},
         frames={
             max: 1,
-        }
+        },
+        offset={x:0,y:0}
     }) {
         this.image = new Image();
         this.image.src = imageSrc;
@@ -17,6 +18,7 @@ export default class Sprite {
             elapsed: 0,
             hold: 3
         };
+        this.offset = offset;
     }
 
     draw() {
@@ -37,7 +39,7 @@ export default class Sprite {
             crop.width,
             crop.height,
             this.position.x,
-            this.position.y,
+            this.position.y + this.offset.y,
             crop.width,
             crop.height
         )

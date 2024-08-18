@@ -1,3 +1,4 @@
+// An array of the spots to move on the map
 export const waypoints = [
     {
      "x":-168,

@@ -55,4 +55,16 @@ export default class Sprite {
             }
         }
     }
+
+    // Test
+    // update() {
+    //     // only change the animation frame every Xth frame
+    //     this.frames.elapsed += 1;
+    //     if(this.frames.elapsed % this.frames.hold === 0) {
+    //         this.frames.current += 1;
+    //         if(this.frames.current >= this.frames.max) {
+    //             this.frames.current = 0;
+    //         }
+    //     }
+    // }
 }

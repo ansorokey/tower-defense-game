@@ -22,6 +22,17 @@ export default class PlacementTile {
         )
     }
 
+    // TEST DRAW
+    // draw() {
+    //     c.fillStyle = this.color;
+    //     c.fillRect(
+    //         this.position.x,
+    //         this.position.y,
+    //         this.size,
+    //         this.size
+    //     )
+    // }
+
     update(mouse) {
         this.draw()
 
